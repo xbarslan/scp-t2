@@ -12,6 +12,19 @@
   * @author Gürkan Akpınar || 4RaymonD on @github || gurkanakpinar.35@gmail.com
 */
 
+// Arduino nano must be programmed on nodebots-hcsr04 to handle communication
+// between Tessel 2.0 and HCSR04 Ultrasonic sensor.
+// https://github.com/ajfisher/nodebots-hcsr04/
+// nodebots-hcsr04/firmware/build/hcsr04_backpack/ in path you can find
+// hcsr04_backpack.ino file that must be deployed to arduino nano.
+
+// Arduino nano, Tessel 2.0 ve HCSR04 Ultrasonic sensör arasında iletişimi
+// kurabilmek için programlanmalıdır. İlgili kütüphaneyi aşağıdaki linkte
+// bulabilirsiniz.
+// https://github.com/ajfisher/nodebots-hcsr04/
+// nodebots-hcsr04/firmware/build/hcsr04_backpack/ klasörünün altındaki
+// hcsr04_backpack.ino dosyası arduino nano cihazına yüklenmeli.
+
 // Tessel
 const tessel = require('tessel');
 
@@ -126,7 +139,7 @@ function getDistance(distance) {
         var usec = data.readUInt16BE();
 
         // Convert usec to cm
-        // Sensorden gelen veriyi cm'e çeviriyoruz
+        // Sensörden gelen veriyi cm'e çeviriyoruz
         distance(usec / 29.1 / 2);
     });
 }
@@ -136,12 +149,12 @@ function start() {
     // Uygulamanın başlangıç metodu
 
     // Get distance (Proximity)
-    // Sensorden uzaklık bilgisi alınır
+    // Sensörden uzaklık bilgisi alınır
     getDistance(distance => {
         console.log(distance);
 
         // Send data to SAP Cloud Platform
-        // Sensor verileri SAP Cloud Platforma gönderilir
+        // Sensör verileri SAP Cloud Platforma gönderilir
         sendToSCP(distance, 24);
     });
 }
